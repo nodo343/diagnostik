@@ -77,6 +77,7 @@ window.addEventListener("beforeunload", () => {
 });
 
 showSecureContextWarning();
+syncSecureOnlyActions();
 loadStoredReport();
 renderSummary();
 buildTouchGrid();
@@ -734,7 +735,43 @@ function showSecureContextWarning() {
     return;
   }
 
+  secureContextWarning.innerHTML = `
+    ეს გვერდი ახლა გახსნილია დაუცველი მისამართიდან <strong>${escapeHtml(window.location.origin)}</strong>.
+    ტელეფონზე ამ რეჟიმში ჩვეულებრივ იმუშავებს ეკრანი, touch, ვიბრაცია, სპიკერი და ნაწილი სენსორების,
+    მაგრამ კამერა, მიკროფონი და GPS სრულად იმუშავებს მხოლოდ <strong>HTTPS</strong>-ზე.
+    აპივით დაყენება კომპიუტერზე <strong>localhost</strong>-იდან შეგიძლია, ხოლო ტელეფონზე ამისთვისაც HTTPS ან სანდო დომენი დაგჭირდება.
+  `;
   secureContextWarning.classList.remove("hidden");
+}
+
+function syncSecureOnlyActions() {
+  const secureOnlyButtons = [
+    '[data-action="camera-back"]',
+    '[data-action="camera-front"]',
+    '[data-action="microphone"]',
+    '[data-action="geolocation"]',
+  ];
+
+  secureOnlyButtons.forEach((selector) => {
+    const button = document.querySelector(selector);
+    if (!button) {
+      return;
+    }
+
+    const originalLabel = button.dataset.originalLabel || button.textContent.trim();
+    button.dataset.originalLabel = originalLabel;
+
+    if (window.isSecureContext) {
+      button.disabled = false;
+      button.textContent = originalLabel;
+      button.removeAttribute("title");
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = `${originalLabel} · HTTPS`;
+    button.title = "ეს ფუნქცია ტელეფონზე სრულად იმუშავებს მხოლოდ HTTPS-ზე.";
+  });
 }
 
 function ensureSecureContext(target) {
