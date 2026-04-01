@@ -8,6 +8,12 @@
       content="Android ტელეფონის მართვა კომპიუტერიდან ADB-ის მეშვეობით."
     />
     <title>Android Control Panel</title>
+    <meta name="theme-color" content="#0d6b6f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Phone Check PC" />
+    <link rel="manifest" href="./manifest-desktop.webmanifest" />
+    <link rel="icon" href="./icons/phone-check-192.png" />
+    <link rel="apple-touch-icon" href="./icons/phone-check-180.png" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./desktop.css" />
   </head>
@@ -29,7 +35,9 @@
           <div class="hero-actions">
             <button id="refresh-status" class="btn btn-primary">მოწყობილობების განახლება</button>
             <a href="./index.html" class="btn btn-secondary link-btn">ბრაუზერული ტესტები</a>
+            <button id="install-app" class="btn btn-secondary" data-install-app>აპის დაყენება</button>
           </div>
+          <p class="install-note" data-install-status></p>
           <div id="adb-warning" class="context-warning hidden">
             ADB ჯერ ვერ მოიძებნა. ჯერ Android Platform Tools და USB debugging დაგჭირდება.
           </div>
@@ -171,5 +179,6 @@
 
     <script src="./vendor/qrcode.min.js"></script>
     <script src="./desktop.js"></script>
+    <script src="./pwa.js"></script>
   </body>
 </html>
