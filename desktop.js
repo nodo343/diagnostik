@@ -78,7 +78,7 @@ function renderPhoneQr(url) {
 
 function buildPhoneLaunchHint(url, hasLocalNetworkUrl) {
   if (hasLocalNetworkUrl && !isLocalOnlyHost(url)) {
-    return "დასკანერე QR კოდი და ტელეფონზე ეს გვერდი მაშინვე გაიხსნება. ორივე მოწყობილობა ერთ Wi-Fi ქსელში უნდა იყოს.";
+    return "დასკანერე QR კოდი და ტელეფონზე ეს გვერდი მაშინვე გაიხსნება. ორივე მოწყობილობა ერთ Wi-Fi ქსელში უნდა იყოს. ეკრანი, touch, ვიბრაცია და ნაწილი სენსორების იმუშავებს, ხოლო კამერა, მიკროფონი და GPS-ს HTTPS დასჭირდება.";
   }
 
   if (isLocalOnlyHost(url)) {
