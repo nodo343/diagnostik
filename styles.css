@@ -1,11 +1,11 @@
 :root {
   --bg: #f3efe4;
   --bg-deep: #e7dbc0;
-  --panel: rgba(255, 250, 241, 0.84);
-  --panel-strong: rgba(255, 250, 241, 0.95);
-  --line: rgba(87, 72, 41, 0.14);
+  --panel: rgba(255, 250, 241, 0.9);
+  --panel-strong: rgba(255, 250, 241, 0.97);
+  --line: rgba(87, 72, 41, 0.18);
   --text: #2d2416;
-  --muted: #72624b;
+  --muted: #5f503e;
   --accent: #0d6b6f;
   --accent-strong: #094f52;
   --warm: #d9863b;
@@ -180,6 +180,15 @@ select {
   line-height: 1.6;
 }
 
+.install-note {
+  min-height: 1.4em;
+  margin: 14px 0 0;
+  max-width: 70ch;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .context-warning {
   display: inline-block;
   margin-top: 16px;
@@ -223,6 +232,12 @@ select {
 
 .btn:active {
   transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.72;
+  cursor: default;
+  transform: none;
 }
 
 .btn-primary {
