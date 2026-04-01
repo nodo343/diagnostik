@@ -8,6 +8,12 @@
       content="ტელეფონის სწრაფი დიაგნოსტიკა ბრაუზერიდან: ეკრანი, touch, კამერა, მიკროფონი, ვიბრაცია, სენსორები და კავშირი."
     />
     <title>Phone Check</title>
+    <meta name="theme-color" content="#0d6b6f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Phone Check" />
+    <link rel="manifest" href="./manifest-phone.webmanifest" />
+    <link rel="icon" href="./icons/phone-check-192.png" />
+    <link rel="apple-touch-icon" href="./icons/phone-check-180.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -30,8 +36,10 @@
           <div class="hero-actions">
             <button id="run-all" class="btn btn-primary">ყველა ტესტის დაწყება</button>
             <button id="export-report" class="btn btn-secondary">რეპორტის გადმოწერა</button>
+            <button id="install-app" class="btn btn-secondary" data-install-app>აპის დაყენება</button>
             <a href="./desktop.html" class="btn btn-secondary link-btn">PC control panel</a>
           </div>
+          <p class="install-note" data-install-status></p>
           <p class="note">
             მნიშვნელოვანია: ღრმა hardware დიაგნოსტიკა მხოლოდ ბრაუზერით შეუძლებელია,
             ამიტომ ზოგი ნაწილი არის ავტომატური, ზოგი კი ვიზუალური ან ხელით შესამოწმებელი.
@@ -196,5 +204,6 @@
     </div>
 
     <script src="./app.js"></script>
+    <script src="./pwa.js"></script>
   </body>
 </html>
