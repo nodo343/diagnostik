@@ -1,0 +1,458 @@
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 360px);
+  gap: 22px;
+  align-items: start;
+}
+
+.hero-main {
+  min-width: 0;
+}
+
+.phone-entry-card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 24px;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(244, 234, 208, 0.72)),
+    rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(87, 72, 41, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.phone-entry-label {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(13, 107, 111, 0.1);
+  color: var(--accent-strong);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.phone-entry-card h2 {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.55rem, 2vw, 2rem);
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.phone-entry-card p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.qr-frame {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 253, 247, 0.96);
+  border: 1px solid rgba(87, 72, 41, 0.1);
+}
+
+.phone-qr {
+  width: min(100%, 214px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.phone-qr img,
+.phone-qr canvas,
+.phone-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.phone-url {
+  color: var(--accent-strong);
+  font-weight: 700;
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+#copy-phone-url {
+  justify-content: center;
+}
+
+.phone-link-status {
+  min-height: 2.8em;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.desktop-grid-top {
+  margin-bottom: 18px;
+}
+
+.desktop-grid,
+.action-grid,
+.setup-list {
+  display: grid;
+  gap: 14px;
+}
+
+.desktop-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.selector-row {
+  display: grid;
+  gap: 10px;
+}
+
+.selector-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.device-select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+}
+
+.action-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.action-button,
+#take-screenshot {
+  justify-content: center;
+}
+
+.danger-button {
+  border-color: rgba(176, 65, 62, 0.24);
+  color: var(--danger);
+}
+
+.screenshot-shell {
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(13, 107, 111, 0.05), rgba(217, 134, 59, 0.08)),
+    rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(87, 72, 41, 0.1);
+  overflow: hidden;
+}
+
+.screenshot-preview {
+  max-width: 100%;
+  display: block;
+}
+
+.screenshot-empty {
+  padding: 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.log-list {
+  display: grid;
+  gap: 12px;
+}
+
+.log-item {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(87, 72, 41, 0.1);
+}
+
+.log-item strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.log-item p,
+.log-item small {
+  margin: 0;
+  color: var(--muted);
+}
+
+.setup-list {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+@media (min-width: 1100px) {
+  body {
+    overflow: hidden;
+  }
+
+  .page-shell {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .desktop-dashboard {
+    width: min(1480px, calc(100% - 24px));
+    min-height: 100vh;
+    padding: 14px 0;
+    display: grid;
+    grid-template-columns: 1.05fr 1.2fr 0.95fr 1.05fr;
+    grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "hero hero hero hero"
+      "connection actions screenshot log"
+      "status actions setup log";
+    gap: 14px;
+  }
+
+  .desktop-dashboard > .hero,
+  .desktop-dashboard > .panel {
+    margin-bottom: 0;
+    min-height: 0;
+  }
+
+  .desktop-hero {
+    grid-area: hero;
+    padding: 20px 24px;
+  }
+
+  .panel-connection {
+    grid-area: connection;
+  }
+
+  .panel-status {
+    grid-area: status;
+  }
+
+  .panel-actions {
+    grid-area: actions;
+  }
+
+  .panel-screenshot {
+    grid-area: screenshot;
+  }
+
+  .panel-log {
+    grid-area: log;
+  }
+
+  .panel-setup {
+    grid-area: setup;
+  }
+
+  .desktop-dashboard > .panel {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    overflow: hidden;
+  }
+
+  .hero-layout {
+    grid-template-columns: minmax(0, 1.55fr) minmax(250px, 300px);
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .hero-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    max-width: 14ch;
+    margin-top: 12px;
+    font-size: clamp(1.95rem, 3.4vw, 3.2rem);
+  }
+
+  .hero-copy {
+    max-width: 60ch;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    margin-top: 16px;
+  }
+
+  .phone-entry-card {
+    gap: 10px;
+    padding: 16px;
+    align-content: start;
+  }
+
+  .phone-entry-card h2 {
+    font-size: 1.32rem;
+  }
+
+  .phone-entry-card p,
+  .phone-link-status,
+  .phone-url {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .qr-frame {
+    padding: 12px;
+  }
+
+  .phone-qr {
+    width: min(100%, 148px);
+  }
+
+  .panel-heading {
+    margin-bottom: 12px;
+  }
+
+  .panel-heading h2 {
+    font-size: 1.18rem;
+  }
+
+  .panel-heading p {
+    margin-top: 4px;
+    font-size: 0.84rem;
+    line-height: 1.42;
+  }
+
+  .btn {
+    padding: 10px 14px;
+  }
+
+  .desktop-grid-top {
+    margin-bottom: 12px;
+  }
+
+  .desktop-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .summary-card {
+    padding: 14px;
+  }
+
+  .summary-card strong {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .selector-row {
+    gap: 8px;
+  }
+
+  .device-select {
+    padding: 12px 14px;
+  }
+
+  #device-info,
+  .action-grid,
+  .log-list,
+  .setup-list,
+  .screenshot-shell {
+    min-height: 0;
+  }
+
+  #device-info {
+    flex: 1;
+    overflow: auto;
+    padding-right: 4px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 10px;
+  }
+
+  .action-grid {
+    flex: 1;
+    overflow: auto;
+    padding-right: 4px;
+    align-content: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .action-grid .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .screenshot-shell {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .screenshot-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .screenshot-empty {
+    padding: 18px;
+    font-size: 0.92rem;
+  }
+
+  .log-list {
+    flex: 1;
+    overflow: auto;
+    padding-right: 4px;
+    align-content: start;
+    gap: 10px;
+  }
+
+  .log-item {
+    padding: 12px 14px;
+  }
+
+  .setup-list {
+    flex: 1;
+    overflow: auto;
+    padding-right: 4px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .report-item {
+    padding: 14px;
+  }
+
+  .report-item p {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 1320px) and (min-width: 1100px) {
+  .desktop-dashboard {
+    grid-template-columns: 1fr 1.05fr 0.9fr 1fr;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #device-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 920px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
+}

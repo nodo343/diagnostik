@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Android ტელეფონის მართვა კომპიუტერიდან ADB-ის მეშვეობით."
+    />
+    <title>Android Control Panel</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./desktop.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="backdrop backdrop-a"></div>
+      <div class="backdrop backdrop-b"></div>
+
+      <main class="app desktop-dashboard">
+        <section class="hero reveal desktop-hero">
+          <div class="hero-layout">
+            <div class="hero-main">
+          <div class="eyebrow">Desktop Control</div>
+          <h1>ტელეფონის მართვა კომპიუტერიდან</h1>
+          <p class="hero-copy">
+            ეს პანელი Android ტელეფონს უკავშირდება ADB-ით. შეგიძლია ნახო მოწყობილობის სტატუსი,
+            გახსნა კამერა, პარამეტრები, აიღო screenshot და გაუშვა სხვა ქმედებები.
+          </p>
+          <div class="hero-actions">
+            <button id="refresh-status" class="btn btn-primary">მოწყობილობების განახლება</button>
+            <a href="./index.html" class="btn btn-secondary link-btn">ბრაუზერული ტესტები</a>
+          </div>
+          <div id="adb-warning" class="context-warning hidden">
+            ADB ჯერ ვერ მოიძებნა. ჯერ Android Platform Tools და USB debugging დაგჭირდება.
+          </div>
+            </div>
+            <aside class="phone-entry-card">
+              <span class="phone-entry-label">Scan On Phone</span>
+              <h2>გახსენი ტელეფონზე</h2>
+              <p>დასკანერე QR კოდი და ტელეფონში პირდაპირ ბრაუზერული დიაგნოსტიკა გაიხსნება.</p>
+              <div class="qr-frame">
+                <div id="phone-qr" class="phone-qr" aria-label="QR code for phone access"></div>
+              </div>
+              <a id="phone-url" class="phone-url" href="./index.html" target="_blank" rel="noreferrer">
+                http://localhost:8000/index.html
+              </a>
+              <button id="copy-phone-url" class="btn btn-secondary">ლინკის კოპირება</button>
+              <p id="phone-link-status" class="phone-link-status" aria-live="polite">
+                ვამზადებ ტელეფონისთვის ბმულს...
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel reveal panel-connection">
+          <div class="panel-heading">
+            <div>
+              <h2>კავშირი</h2>
+              <p>აირჩიე შეერთებული მოწყობილობა.</p>
+            </div>
+          </div>
+
+          <div class="desktop-grid desktop-grid-top">
+            <div class="summary-card">
+              <span>ADB</span>
+              <strong id="adb-status">შემოწმება...</strong>
+            </div>
+            <div class="summary-card">
+              <span>scrcpy</span>
+              <strong id="scrcpy-status">შემოწმება...</strong>
+            </div>
+            <div class="summary-card">
+              <span>მოწყობილობა</span>
+              <strong id="device-count">0</strong>
+            </div>
+          </div>
+
+          <div class="selector-row">
+            <label class="selector-label" for="device-select">არჩეული ტელეფონი</label>
+            <select id="device-select" class="device-select">
+              <option value="">აირჩიე მოწყობილობა</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel reveal panel-status">
+          <div class="panel-heading">
+            <div>
+              <h2>სტატუსი</h2>
+              <p>მიღებული ინფორმაცია დაკავშირებული ტელეფონიდან.</p>
+            </div>
+            <button id="refresh-info" class="btn btn-ghost">ინფორმაციის განახლება</button>
+          </div>
+
+          <div id="device-info" class="summary-grid"></div>
+        </section>
+
+        <section class="panel reveal panel-actions">
+          <div class="panel-heading">
+            <div>
+              <h2>ქმედებები</h2>
+              <p>ეს ბრძანებები ტელეფონზე უშუალოდ კომპიუტერიდან იგზავნება.</p>
+            </div>
+          </div>
+
+          <div class="action-grid">
+            <button class="btn btn-card action-button" data-action="open_camera">კამერის გახსნა</button>
+            <button class="btn btn-card action-button" data-action="open_settings">Settings</button>
+            <button class="btn btn-card action-button" data-action="open_wifi_settings">Wi-Fi</button>
+            <button class="btn btn-card action-button" data-action="wake_screen">ეკრანის ჩართვა</button>
+            <button class="btn btn-card action-button" data-action="go_home">Home</button>
+            <button class="btn btn-card action-button" data-action="open_recents">Recent apps</button>
+            <button class="btn btn-card action-button" data-action="volume_up">ხმის აწევა</button>
+            <button class="btn btn-card action-button" data-action="volume_down">ხმის დაწევა</button>
+            <button id="take-screenshot" class="btn btn-card">Screenshot</button>
+            <button class="btn btn-card action-button" data-action="launch_scrcpy">scrcpy</button>
+            <button class="btn btn-card action-button danger-button" data-action="reboot">Reboot</button>
+          </div>
+        </section>
+
+        <section class="panel reveal panel-screenshot">
+          <div class="panel-heading">
+            <div>
+              <h2>ეკრანის სურათი</h2>
+              <p>სკრინშოტი პირდაპირ ტელეფონიდან ADB-ით.</p>
+            </div>
+          </div>
+
+          <div class="screenshot-shell">
+            <img id="screenshot-preview" class="screenshot-preview hidden" alt="Phone screenshot" />
+            <div id="screenshot-empty" class="screenshot-empty">
+              ჯერ screenshot არ არის აღებული.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal panel-log">
+          <div class="panel-heading">
+            <div>
+              <h2>ლოგი</h2>
+              <p>ბოლო ქმედებები და პასუხები.</p>
+            </div>
+          </div>
+          <div id="log-list" class="log-list"></div>
+        </section>
+
+        <section class="panel reveal panel-setup">
+          <div class="panel-heading">
+            <div>
+              <h2>სწრაფი Setup</h2>
+              <p>თუ ADB ჯერ არ მუშაობს.</p>
+            </div>
+          </div>
+          <div class="setup-list">
+            <div class="report-item">
+              <strong>1. Developer options</strong>
+              <p>ტელეფონში ააქტიურე Developer options და შემდეგ USB debugging.</p>
+            </div>
+            <div class="report-item">
+              <strong>2. USB კაბელი</strong>
+              <p>შეაერთე Android ტელეფონი კომპიუტერზე და დაადასტურე RSA prompt.</p>
+            </div>
+            <div class="report-item">
+              <strong>3. Platform Tools</strong>
+              <p>კომპიუტერზე უნდა გქონდეს `adb.exe`. ამის შემდეგ ეს პანელი თვითონ იპოვის მოწყობილობას.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./vendor/qrcode.min.js"></script>
+    <script src="./desktop.js"></script>
+  </body>
+</html>

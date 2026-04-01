@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ტელეფონის სწრაფი დიაგნოსტიკა ბრაუზერიდან: ეკრანი, touch, კამერა, მიკროფონი, ვიბრაცია, სენსორები და კავშირი."
+    />
+    <title>Phone Check</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="backdrop backdrop-a"></div>
+      <div class="backdrop backdrop-b"></div>
+
+      <main class="app">
+        <section class="hero reveal">
+          <div class="eyebrow">Mobile Diagnostics</div>
+          <h1>ტელეფონის დიაგნოსტიკა ერთ გვერდზე</h1>
+          <div id="secure-context-warning" class="context-warning hidden">
+            გახსნილი ხარ არა-უსაფრთხო მისამართიდან. კამერა, მიკროფონი და GPS სრულად იმუშავებს მხოლოდ
+            https ან localhost გარემოში.
+          </div>
+          <p class="hero-copy">
+            ეს გვერდი ამოწმებს იმ კომპონენტებს, რომლებზეც ბრაუზერს აქვს წვდომა:
+            ეკრანი, touch, კამერა, მიკროფონი, სენსორები, ვიბრაცია და ქსელი.
+          </p>
+          <div class="hero-actions">
+            <button id="run-all" class="btn btn-primary">ყველა ტესტის დაწყება</button>
+            <button id="export-report" class="btn btn-secondary">რეპორტის გადმოწერა</button>
+            <a href="./desktop.html" class="btn btn-secondary link-btn">PC control panel</a>
+          </div>
+          <p class="note">
+            მნიშვნელოვანია: ღრმა hardware დიაგნოსტიკა მხოლოდ ბრაუზერით შეუძლებელია,
+            ამიტომ ზოგი ნაწილი არის ავტომატური, ზოგი კი ვიზუალური ან ხელით შესამოწმებელი.
+          </p>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-heading">
+            <div>
+              <h2>სისტემის მოკლე ინფორმაცია</h2>
+              <p>ამ მონაცემებს პირდაპირ შენი ბრაუზერი გვაწვდის.</p>
+            </div>
+            <button id="refresh-info" class="btn btn-ghost">განახლება</button>
+          </div>
+          <div id="device-summary" class="summary-grid"></div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-heading">
+            <div>
+              <h2>დიაგნოსტიკის ტესტები</h2>
+              <p>დააჭირე ცალკე ან გაუშვი ყველა ერთად.</p>
+            </div>
+          </div>
+          <div class="test-grid">
+            <article class="test-card" data-test="battery">
+              <div class="test-top">
+                <h3>ბატარეა</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>Battery API თუ მხარდაჭერილია, ვაჩვენებთ დონეს და დატენვის სტატუსს.</p>
+              <button class="btn btn-card" data-action="battery">გაშვება</button>
+              <div class="test-result" data-result="battery"></div>
+            </article>
+
+            <article class="test-card" data-test="vibration">
+              <div class="test-top">
+                <h3>ვიბრაცია</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>ტელეფონი მოკლედ უნდა ვიბრირებდეს.</p>
+              <button class="btn btn-card" data-action="vibration">გაშვება</button>
+              <div class="test-result" data-result="vibration"></div>
+            </article>
+
+            <article class="test-card" data-test="audio">
+              <div class="test-top">
+                <h3>სპიკერი</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>იტესტება მოკლე ტონი. ხმა უნდა გაიგო აშკარად.</p>
+              <button class="btn btn-card" data-action="audio">გაშვება</button>
+              <div class="test-result" data-result="audio"></div>
+            </article>
+
+            <article class="test-card" data-test="camera">
+              <div class="test-top">
+                <h3>კამერა</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>გაიხსნება კამერის preview. შეგიძლია წინა ან უკანა კამერის ტესტი.</p>
+              <div class="inline-actions">
+                <button class="btn btn-card" data-action="camera-back">უკანა კამერა</button>
+                <button class="btn btn-card" data-action="camera-front">წინა კამერა</button>
+              </div>
+              <div class="media-frame">
+                <video id="camera-preview" playsinline autoplay muted></video>
+              </div>
+              <div class="test-result" data-result="camera"></div>
+            </article>
+
+            <article class="test-card" data-test="microphone">
+              <div class="test-top">
+                <h3>მიკროფონი</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>ნებადართვის შემდეგ გამოჩნდება ხმაურის დონე.</p>
+              <button class="btn btn-card" data-action="microphone">გაშვება</button>
+              <div class="meter">
+                <div id="mic-level" class="meter-bar"></div>
+              </div>
+              <div class="test-result" data-result="microphone"></div>
+            </article>
+
+            <article class="test-card" data-test="sensors">
+              <div class="test-top">
+                <h3>მოძრაობა და ორიენტაცია</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>შეარხიე ან გადაატრიალე ტელეფონი. ვაკვირდებით motion/orientation სენსორებს.</p>
+              <button class="btn btn-card" data-action="sensors">გაშვება</button>
+              <div class="sensor-grid">
+                <div><span>X</span><strong id="motion-x">-</strong></div>
+                <div><span>Y</span><strong id="motion-y">-</strong></div>
+                <div><span>Z</span><strong id="motion-z">-</strong></div>
+                <div><span>Alpha</span><strong id="orientation-a">-</strong></div>
+                <div><span>Beta</span><strong id="orientation-b">-</strong></div>
+                <div><span>Gamma</span><strong id="orientation-c">-</strong></div>
+              </div>
+              <div class="test-result" data-result="sensors"></div>
+            </article>
+
+            <article class="test-card" data-test="touch">
+              <div class="test-top">
+                <h3>Touch ეკრანი</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>მონიშნე ყველა უჯრა თითით, რომ dead zone-ები სწრაფად შენიშნო.</p>
+              <button class="btn btn-card" data-action="touch-reset">გასუფთავება</button>
+              <div id="touch-grid" class="touch-grid" aria-label="Touch test grid"></div>
+              <div class="test-result" data-result="touch"></div>
+            </article>
+
+            <article class="test-card" data-test="screen">
+              <div class="test-top">
+                <h3>ეკრანი</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>გაატარე ფერები fullscreen-ზე dead pixel, brightness და bleed შესამოწმებლად.</p>
+              <div class="inline-actions">
+                <button class="btn btn-card" data-action="screen-red">წითელი</button>
+                <button class="btn btn-card" data-action="screen-green">მწვანე</button>
+                <button class="btn btn-card" data-action="screen-blue">ლურჯი</button>
+                <button class="btn btn-card" data-action="screen-black">შავი</button>
+                <button class="btn btn-card" data-action="screen-white">თეთრი</button>
+              </div>
+              <div class="test-result" data-result="screen"></div>
+            </article>
+
+            <article class="test-card" data-test="network">
+              <div class="test-top">
+                <h3>ქსელი და GPS</h3>
+                <span class="status-badge pending">მოლოდინი</span>
+              </div>
+              <p>ვკითხულობთ ინტერნეტის სტატუსს და, სურვილის შემთხვევაში, ლოკაციას.</p>
+              <div class="inline-actions">
+                <button class="btn btn-card" data-action="network">ქსელის ტესტი</button>
+                <button class="btn btn-card" data-action="geolocation">GPS</button>
+              </div>
+              <div class="test-result" data-result="network"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-heading">
+            <div>
+              <h2>რეპორტი</h2>
+              <p>სტატუსები ავტომატურად ინახება ამ სესიაში.</p>
+            </div>
+          </div>
+          <div id="report-list" class="report-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="screen-overlay" class="screen-overlay hidden" role="dialog" aria-modal="true">
+      <button id="close-overlay" class="overlay-close">დახურვა</button>
+      <div class="overlay-instruction">
+        დაათვალიერე ეკრანი და დაბრუნდი დახურვით.
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
